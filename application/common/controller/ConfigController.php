@@ -10,16 +10,15 @@ namespace app\common\controller;
 use think\Cache;
 use think\Controller;
 use think\Db;
+use think\Request;
 use think\Session;
 
 class ConfigController extends Controller
 {
     public function  _initialize(){
         parent::_initialize();
-        header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Credentials: true');
-        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, authKey, sessionId");
+        $header = Request::instance()->header();
+      
     }
     public function index()
     {

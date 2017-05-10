@@ -16,9 +16,10 @@ class CommonController extends ConfigController
 {
     public function  _initialize(){
         parent::_initialize();
-        if(empty(Session::get('user'))) {
-            echo json_encode(array('code' => 2, 'message' => '请先登录'));
-            die;
+        $header = Request::instance()->header();
+        $token = isset($header['token'])?$header['token']:'';
+        if(!$token||Cache::get($token)){
+            echo json_encode(array('code'=>10,'message'=>'请先登录'));die;
         }
     }
     public function index()
