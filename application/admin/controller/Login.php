@@ -9,28 +9,30 @@
 
 namespace app\admin\controller;
 
+use app\common\controller\ConfigController;
 use think\captcha\Captcha;
 use think\Controller;
 use think\Db;
 
-class Login extends Controller
+class Login extends ConfigController
 {
     public function index()
     {
         
         $data = input();
+
         $username = $data['username'];
         $password = md5($data['password']);
-        $vcode= $data['code'];
-        $captcha = new Captcha();
-        $re=$captcha->check($vcode);
-        if(!$re){
-            echo json_encode(array('code'=>0,'message'=>'验证码错误'));die;
-        };
-        $userInfo=Db::name('user')->where('username',$username)->find();
+//        $vcode= $data['code'];
+
+//        $captcha = new Captcha(config('captcha'));
+//        if(!$captcha->check($vcode)){
+//            echo json_encode(array('code'=>10,'message'=>'验证码错误'));die;
+//        };
+        $userInfo=Db::name('admin_user')->where('username',$username)->find();
         if(md5($userInfo['password'])==$password){
-            unset($userInfo['passowrd']);
-//            Session::set('userInfo',$userInfo);
+
+
             echo json_encode(array('code'=>1,'message'=>'登录成功',data=>$userInfo));die;
         }else{
             echo json_encode(array('code'=>0,'message'=>'用户名或密码错误'));die;
@@ -38,13 +40,18 @@ class Login extends Controller
         }
     }
 
-    public function code()
+    public function info()
     {
-//        captcha_img();
-        $captcha = new Captcha();
-        return $captcha->entry();
-//        print_r(input('session.'));exit;
 
+        return   $this->fetch();
     }
 
+    /**
+     * @return mixed
+     */
+    public function code()
+    {
+        $captcha = new Captcha(config('captcha'));
+        return $captcha->entry();
+    }
 }
