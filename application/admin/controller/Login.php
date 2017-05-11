@@ -9,13 +9,13 @@
 
 namespace app\admin\controller;
 
-use app\common\controller\ConfigController;
+use app\common\controller\CommonController;
 use think\Cache;
 use think\captcha\Captcha;
 use think\Controller;
 use think\Db;
 
-class Login extends ConfigController
+class Login extends CommonController
 {
     public function index()
     {
