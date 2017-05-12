@@ -10,6 +10,7 @@
 namespace app\admin\controller;
 
 use app\common\controller\CommonController;
+use com\Tree;
 use think\Cache;
 use think\captcha\Captcha;
 use think\Controller;
@@ -20,7 +21,10 @@ class Menu extends Controller
 {
     public function index()
     {
-
+        $menuModel = new MenuModel;
+        $id = input('post.id','0');
+        $re=$menuModel->getAllChild($id);
+        var_dump($re);
     }
 
     public function add()
@@ -29,7 +33,7 @@ class Menu extends Controller
         $data = input();
         $id = createId();
         $data['id'] = $id;
-        $menuModel = new \app\admin\model\Menu('Menu');
+        $menuModel = new MenuModel;
         $re=$menuModel->createData($data);
         if($re){
             echo json_encode(array('code'=>1,'message'=>'添加成功','data'=>$id));die;
@@ -63,5 +67,13 @@ class Menu extends Controller
         }else{
             echo json_encode(array('code'=>0,'message'=>$menuModel->getError()));die;
         }
+    }
+
+    public function tree(){
+        $tree =  new Tree();
+        $re=Db::name('admin_menu')->select();
+        $treeData=$tree->toFormatTree($re);
+        echo json_encode(array('code'=>1,'data'=>$treeData));die;
+
     }
 }
