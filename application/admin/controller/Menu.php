@@ -68,12 +68,28 @@ class Menu extends Controller
             echo json_encode(array('code'=>0,'message'=>$menuModel->getError()));die;
         }
     }
-
+    //查询菜单属性结构图
     public function tree(){
         $tree =  new Tree();
         $re=Db::name('admin_menu')->select();
         $treeData=$tree->toFormatTree($re);
         echo json_encode(array('code'=>1,'data'=>$treeData));die;
 
+    }
+
+    //根据菜单id进行显示隐藏
+    public function changestatus(){
+        $id = input('id',0);
+        $status = input('status',1);
+        $menuModel = new MenuModel;
+        $idList =$menuModel->getAllChild($id);
+        array_push($idList,$id);
+        $re=Db::name('admin_menu')->where('id','in',$idList)->update(array('status'=>$status));
+        if($re){
+            echo json_encode(array('code'=>1,'message'=>'状态更新成功'));die;
+        }else{
+            echo json_encode(array('code'=>0,'message'=>'状态更新失败'));die;
+
+        }
     }
 }
