@@ -58,10 +58,14 @@ class Menu extends Controller
 
     public function del()
     {
-
         $data = input();
         $menuModel = new MenuModel;
-        $re=$menuModel->delDataById($data['id']);
+        if(is_array($data['id'])){
+            $idList = $data['id'];
+        }else{
+            $idList = [$data['id']];
+        }
+        $re=$menuModel->delDatas($idList,true);
         if($re){
             echo json_encode(array('code'=>1,'message'=>'删除成功'));die;
         }else{
@@ -82,9 +86,10 @@ class Menu extends Controller
         $id = input('id',0);
         $status = input('status',1);
         $menuModel = new MenuModel;
-        $idList =$menuModel->getAllChild($id);
-        array_push($idList,$id);
-        $re=Db::name('admin_menu')->where('id','in',$idList)->update(array('status'=>$status));
+//        $idList =$menuModel->getAllChild($id);
+//        array_push($idList,$id);
+//        $re=Db::name('admin_menu')->where('id','in',$idList)->update(array('status'=>$status));
+        $re=$menuModel->enableDatas([$id],$status,true);
         if($re){
             echo json_encode(array('code'=>1,'message'=>'状态更新成功'));die;
         }else{

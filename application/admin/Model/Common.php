@@ -143,7 +143,7 @@ class Common extends Model
         // 查找所有子元素
         if ($delSon) {
             foreach ($ids as $k => $v) {
-                if (!is_numeric($v)) continue;
+//                if (!is_numeric($v)) continue;
                 $childIds = $this->getAllChild($v);
                 $ids = array_merge($ids, $childIds);
             }
@@ -166,18 +166,18 @@ class Common extends Model
      * @DateTime  2017-02-11T21:01:58+0800
      * @param     string                   $ids    [主键数组]
      * @param     integer                  $status [状态1启用0禁用]
-     * @param     [boolean]                $delSon [是否删除子孙数组]
+     * @param     [boolean]                $delSon [是否禁用子孙数组]
      * @return    [type]                           [description]
      */
     public function enableDatas($ids = [], $status = 1, $delSon = false)
     {
         if (empty($ids)) {
-            $this->error = '删除失败';
+            $this->error = '操作失败';
             return false;
         }
 
         // 查找所有子元素
-        if ($delSon && $status === '0') {
+        if ($delSon) {
             foreach ($ids as $k => $v) {
                 $childIds = $this->getAllChild($v);
                 $ids = array_merge($ids, $childIds);
