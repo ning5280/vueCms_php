@@ -17,7 +17,7 @@ class Article extends Common
     protected  $relationModel = ['admin_menu'];
     protected $fk = 'id';
     public function pageList($data = array()){
-        return  $this->field('cms_admin_menu.title as mtitle,cms_admin_article.*')->join("cms_admin_menu","cms_admin_menu.id = cms_admin_article.mid")->where($data)->order('update_time', 'desc')->select();
+        return  $this->field('cms_admin_menu.title as mtitle,cms_admin_article.*')->join("cms_admin_menu","cms_admin_menu.id = cms_admin_article.mid","LEFT")->where($data)->order('update_time', 'desc')->select();
     }
 
 }
