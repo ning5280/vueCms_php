@@ -21,7 +21,7 @@ class Article extends Controller
     {
         $pageNo = input('post.pageNo','1'); //当前页码
         $pageSize = input('post.pageSize','10'); //一页条数
-        $where = array();
+        $where = array(); //筛选条件 暂无
         $articleModel = new ArticleModel;
         $re=$articleModel->pageList($where,$pageNo,$pageSize);
         echo json_encode(array('code'=>1,'data'=>$re));die;
