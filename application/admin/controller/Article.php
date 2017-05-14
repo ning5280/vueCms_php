@@ -19,9 +19,11 @@ class Article extends Controller
 {
     public function index()
     {
-        $id = input('post.id','0');
+        $pageNo = input('post.pageNo','1'); //当前页码
+        $pageSize = input('post.pageSize','10'); //一页条数
+        $where = array();
         $articleModel = new ArticleModel;
-        $re=$articleModel->pageList();
+        $re=$articleModel->pageList($where,$pageNo,$pageSize);
         echo json_encode(array('code'=>1,'data'=>$re));die;
     }
 
