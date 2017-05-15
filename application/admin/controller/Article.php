@@ -47,12 +47,12 @@ class Article extends Controller
     {
 
         $data = input();
-        $menuModel = new ArticleModel;
-        $re=$menuModel->updateDataById($data,$data['id']);
+        $articleModel = new ArticleModel;
+        $re=$articleModel->updateDataById($data,$data['id']);
         if($re){
             echo json_encode(array('code'=>1,'message'=>'编辑成功'));die;
         }else{
-            echo json_encode(array('code'=>0,'message'=>$menuModel->getError()));die;
+            echo json_encode(array('code'=>0,'message'=>$articleModel->getError()));die;
         }
     }
 
@@ -114,5 +114,14 @@ class Article extends Controller
             // 上传失败获取错误信息
             echo $file->getError();die;
         }
+    }
+
+    //根据id获取文章详情
+
+    public function info(){
+        $data = input();
+        $articleModel = new ArticleModel;
+        $re=$articleModel->getDataById($data['id']);
+        echo json_encode(array('code'=>1,'data'=>$re));die;
     }
 }
