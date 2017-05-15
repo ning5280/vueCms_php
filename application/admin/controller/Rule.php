@@ -46,35 +46,35 @@ class Rule extends Controller
     {
 
         $data = input();
-        $menuModel = new RuleModel;
-        $re=$menuModel->updateDataById($data,$data['id']);
+        $ruleModel = new RuleModel;
+        $re=$ruleModel->updateDataById($data,$data['id']);
         if($re){
             echo json_encode(array('code'=>1,'message'=>'编辑成功'));die;
         }else{
-            echo json_encode(array('code'=>0,'message'=>$menuModel->getError()));die;
+            echo json_encode(array('code'=>0,'message'=>$ruleModel->getError()));die;
         }
     }
 
     public function del()
     {
         $data = input();
-        $menuModel = new RuleModel;
+        $ruleModel = new RuleModel;
         if(is_array($data['id'])){
             $idList = $data['id'];
         }else{
             $idList = [$data['id']];
         }
-        $re=$menuModel->delDatas($idList,true);
+        $re=$ruleModel->delDatas($idList,true);
         if($re){
             echo json_encode(array('code'=>1,'message'=>'删除成功'));die;
         }else{
-            echo json_encode(array('code'=>0,'message'=>$menuModel->getError()));die;
+            echo json_encode(array('code'=>0,'message'=>$ruleModel->getError()));die;
         }
     }
     //查询菜单属性结构图
     public function tree(){
         $tree =  new Tree();
-        $re=Db::name('admin_rule')->select();
+        $re=Db::name('admin_rule')->order('sort')->select();
         $treeData=$tree->toFormatTree($re);
         echo json_encode(array('code'=>1,'data'=>$treeData));die;
 

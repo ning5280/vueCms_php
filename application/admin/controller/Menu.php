@@ -73,7 +73,7 @@ class Menu extends Controller
     //查询菜单属性结构图
     public function tree(){
         $tree =  new Tree();
-        $re=Db::name('admin_menu')->select();
+        $re=Db::name('admin_menu')->order('sort')->select();
         $treeData=$tree->toFormatTree($re);
         echo json_encode(array('code'=>1,'data'=>$treeData));die;
 
