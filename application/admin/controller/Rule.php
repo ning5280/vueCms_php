@@ -13,13 +13,13 @@ use app\common\controller\CommonController;
 use com\Tree;
 use think\Controller;
 use think\Db;
-use app\admin\model\Menu as MenuModel;
+use app\admin\model\Rule as RuleModel;
 
-class Menu extends Controller
+class Rule extends Controller
 {
     public function index()
     {
-        $menuModel = new MenuModel;
+        $menuModel = new RuleModel;
         $id = input('post.id','0');
         $re=$menuModel->getAllChild($id);
         var_dump($re);
@@ -31,12 +31,13 @@ class Menu extends Controller
         $data = input();
         $id = createId();
         $data['id'] = $id;
-        $menuModel = new MenuModel;
-        $re=$menuModel->createData($data);
+
+        $ruleModel = new RuleModel;
+        $re=$ruleModel->createData($data);
         if($re){
             echo json_encode(array('code'=>1,'message'=>'添加成功','data'=>$id));die;
         }else{
-            echo json_encode(array('code'=>0,'message'=>$menuModel->getError()));die;
+            echo json_encode(array('code'=>0,'message'=>$ruleModel->getError()));die;
         }
     }
 
@@ -45,7 +46,7 @@ class Menu extends Controller
     {
 
         $data = input();
-        $menuModel = new MenuModel;
+        $menuModel = new RuleModel;
         $re=$menuModel->updateDataById($data,$data['id']);
         if($re){
             echo json_encode(array('code'=>1,'message'=>'编辑成功'));die;
@@ -57,7 +58,7 @@ class Menu extends Controller
     public function del()
     {
         $data = input();
-        $menuModel = new MenuModel;
+        $menuModel = new RuleModel;
         if(is_array($data['id'])){
             $idList = $data['id'];
         }else{
@@ -73,7 +74,7 @@ class Menu extends Controller
     //查询菜单属性结构图
     public function tree(){
         $tree =  new Tree();
-        $re=Db::name('admin_menu')->select();
+        $re=Db::name('admin_rule')->select();
         $treeData=$tree->toFormatTree($re);
         echo json_encode(array('code'=>1,'data'=>$treeData));die;
 
@@ -83,7 +84,7 @@ class Menu extends Controller
     public function changestatus(){
         $id = input('id',0);
         $status = input('status',1);
-        $menuModel = new MenuModel;
+        $menuModel = new RuleModel;
 //        $idList =$menuModel->getAllChild($id);
 //        array_push($idList,$id);
 //        $re=Db::name('admin_menu')->where('id','in',$idList)->update(array('status'=>$status));
