@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-05-14 12:04:24
+Date: 2017-05-15 22:27:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -84,17 +84,44 @@ CREATE TABLE `cms_admin_menu` (
   `rule_id` int(11) DEFAULT NULL COMMENT '权限id',
   `module` varchar(50) DEFAULT NULL,
   `menu` varchar(50) DEFAULT NULL COMMENT '三级菜单吗',
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='【配置】后台菜单表';
 
 -- ----------------------------
 -- Records of cms_admin_menu
 -- ----------------------------
-INSERT INTO `cms_admin_menu` VALUES ('2a205eecf9e4e2ebcbc878f0ed3a4db2', 'c7c2cd24dc9881a11a06016c13d31f34', '324324', '', '', null, '1', '1', null, null, null);
-INSERT INTO `cms_admin_menu` VALUES ('31b7cc8454505b809f5a1124faf6d11f', 'c7c2cd24dc9881a11a06016c13d31f34', '1234', '', '', '0', '11', '0', '0', '', '');
-INSERT INTO `cms_admin_menu` VALUES ('55c12f9f2c64707fa335d4df4cb254a7', '0', '11111', '', '', '0', '0', '1', '0', '', '');
-INSERT INTO `cms_admin_menu` VALUES ('c7c2cd24dc9881a11a06016c13d31f34', '55c12f9f2c64707fa335d4df4cb254a7', '11111', '', '', null, '0', '1', null, null, null);
-INSERT INTO `cms_admin_menu` VALUES ('d8dc8094b6362842a9f992bea7c1e9b2', '73c58eb8991d1faa255d9a8a4a8c3811', '123123', '', '', null, '1', '1', null, null, null);
+INSERT INTO `cms_admin_menu` VALUES ('2a205eecf9e4e2ebcbc878f0ed3a4db2', 'c7c2cd24dc9881a11a06016c13d31f34', '324324', '', '', null, '1', '1', null, null, null, null, null);
+INSERT INTO `cms_admin_menu` VALUES ('31b7cc8454505b809f5a1124faf6d11f', 'c7c2cd24dc9881a11a06016c13d31f34', '1234', '', '', '0', '11', '1', '0', '', '', null, null);
+INSERT INTO `cms_admin_menu` VALUES ('55c12f9f2c64707fa335d4df4cb254a7', '0', '11111', '', '', '0', '0', '1', '0', '', '', null, null);
+INSERT INTO `cms_admin_menu` VALUES ('b8ffec782b87f0d1bde79508aee8a4eb', '0', '123213', '', '', null, '1', '1', null, null, null, '1494857270', '1494857270');
+INSERT INTO `cms_admin_menu` VALUES ('c7c2cd24dc9881a11a06016c13d31f34', '55c12f9f2c64707fa335d4df4cb254a7', '11111', '', '', null, '0', '1', null, null, null, null, null);
+INSERT INTO `cms_admin_menu` VALUES ('d8dc8094b6362842a9f992bea7c1e9b2', '73c58eb8991d1faa255d9a8a4a8c3811', '123123', '', '', null, '1', '1', null, null, null, null, null);
+
+-- ----------------------------
+-- Table structure for `cms_admin_rule`
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_admin_rule`;
+CREATE TABLE `cms_admin_rule` (
+  `id` char(32) NOT NULL,
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '名称',
+  `name` varchar(64) NOT NULL DEFAULT '' COMMENT '定义名',
+  `type` tinyint(5) NOT NULL DEFAULT '1' COMMENT '级别。1模块,2控制器,3操作',
+  `pid` char(32) DEFAULT '0' COMMENT '父级id 默认0',
+  `status` tinyint(3) DEFAULT '1' COMMENT '状态 默认为1 开启 0关闭',
+  `sort` tinyint(3) DEFAULT '1',
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cms_admin_rule
+-- ----------------------------
+INSERT INTO `cms_admin_rule` VALUES ('6b838f16ab9801ac208bb8be13e9d6e1', '菜单管理', 'menu', '2', '79ce3e8a741fb39b3db152f7dff27c1a', '1', '1', '1494857363', '1494857363');
+INSERT INTO `cms_admin_rule` VALUES ('776b6af98ee339b8ce1f2c28f9e7b6d6', '添加菜单', 'add', '3', '6b838f16ab9801ac208bb8be13e9d6e1', '1', '1', '1494857388', '1494857388');
+INSERT INTO `cms_admin_rule` VALUES ('79ce3e8a741fb39b3db152f7dff27c1a', '后台管理模块', 'admin', '1', '0', '1', '1', '1494857329', '1494857329');
 
 -- ----------------------------
 -- Table structure for `cms_admin_user`
@@ -106,6 +133,7 @@ CREATE TABLE `cms_admin_user` (
   `password` varchar(100) DEFAULT NULL COMMENT '管理后台密码',
   `remark` varchar(100) DEFAULT NULL COMMENT '用户备注',
   `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
   `realname` varchar(100) DEFAULT NULL COMMENT '真实姓名',
   `structure_id` int(11) DEFAULT NULL COMMENT '部门',
   `post_id` int(11) DEFAULT NULL COMMENT '岗位',
@@ -116,4 +144,4 @@ CREATE TABLE `cms_admin_user` (
 -- ----------------------------
 -- Records of cms_admin_user
 -- ----------------------------
-INSERT INTO `cms_admin_user` VALUES ('12321fcdssc21', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '12213', '123213', null, null, null, '1');
+INSERT INTO `cms_admin_user` VALUES ('12321fcdssc21', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '12213', '123213', null, null, null, null, '1');
