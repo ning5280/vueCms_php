@@ -65,7 +65,7 @@ class Article extends Controller
         }else{
             $idList = [$data['id']];
         }
-        $re=$menuModel->delDatas($idList,true);
+        $re=$menuModel->delDatas($idList);
         if($re){
             echo json_encode(array('code'=>1,'message'=>'删除成功'));die;
         }else{
