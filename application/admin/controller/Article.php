@@ -86,10 +86,8 @@ class Article extends Controller
         $id = input('id',0);
         $status = input('status',1);
         $menuModel = new ArticleModel;
-//        $idList =$menuModel->getAllChild($id);
-//        array_push($idList,$id);
-//        $re=Db::name('admin_menu')->where('id','in',$idList)->update(array('status'=>$status));
-        $re=$menuModel->enableDatas([$id],$status,true);
+
+        $re=$menuModel->enableDatas([$id],$status);
         if($re){
             echo json_encode(array('code'=>1,'message'=>'状态更新成功'));die;
         }else{
