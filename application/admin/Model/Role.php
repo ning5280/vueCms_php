@@ -15,6 +15,6 @@ class Role extends Common
 
     
     public function getAll(){
-        return $this->order("sort desc")->select();
+        return $this->order("sort")->select();
     }
 }

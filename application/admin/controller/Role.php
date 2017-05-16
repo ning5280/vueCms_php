@@ -29,12 +29,12 @@ class Role extends Controller
         $data = input();
         $id = createId();
         $data['id'] = $id;
-        $menuModel = new RoleModel;
-        $re=$menuModel->createData($data);
+        $roleModel = new RoleModel;
+        $re=$roleModel->createData($data);
         if($re){
             echo json_encode(array('code'=>1,'message'=>'添加成功','data'=>$id));die;
         }else{
-            echo json_encode(array('code'=>0,'message'=>$menuModel->getError()));die;
+            echo json_encode(array('code'=>0,'message'=>$roleModel->getError()));die;
         }
     }
 
@@ -43,54 +43,31 @@ class Role extends Controller
     {
 
         $data = input();
-        $menuModel = new RoleModel;
-        $re=$menuModel->updateDataById($data,$data['id']);
+        $roleModel = new RoleModel;
+        $re=$roleModel->updateDataById($data,$data['id']);
         if($re){
             echo json_encode(array('code'=>1,'message'=>'编辑成功'));die;
         }else{
-            echo json_encode(array('code'=>0,'message'=>$menuModel->getError()));die;
+            echo json_encode(array('code'=>0,'message'=>$roleModel->getError()));die;
         }
     }
 
     public function del()
     {
         $data = input();
-        $menuModel = new RoleModel;
+        $roleModel = new RoleModel;
         if(is_array($data['id'])){
             $idList = $data['id'];
         }else{
             $idList = [$data['id']];
         }
-        $re=$menuModel->delDatas($idList,true);
+        $re=$roleModel->delDatas($idList);
         if($re){
             echo json_encode(array('code'=>1,'message'=>'删除成功'));die;
         }else{
-            echo json_encode(array('code'=>0,'message'=>$menuModel->getError()));die;
+            echo json_encode(array('code'=>0,'message'=>$roleModel->getError()));die;
         }
     }
-    //查询菜单属性结构图
-    public function tree(){
-        $tree =  new Tree();
-        $re=Db::name('admin_menu')->order('sort')->select();
-        $treeData=$tree->toFormatTree($re);
-        echo json_encode(array('code'=>1,'data'=>$treeData));die;
 
-    }
 
-    //根据菜单id进行显示隐藏
-    public function changestatus(){
-        $id = input('id',0);
-        $status = input('status',1);
-        $menuModel = new RoleModel;
-//        $idList =$menuModel->getAllChild($id);
-//        array_push($idList,$id);
-//        $re=Db::name('admin_menu')->where('id','in',$idList)->update(array('status'=>$status));
-        $re=$menuModel->enableDatas([$id],$status,true);
-        if($re){
-            echo json_encode(array('code'=>1,'message'=>'状态更新成功'));die;
-        }else{
-            echo json_encode(array('code'=>0,'message'=>'状态更新失败'));die;
-
-        }
-    }
 }
