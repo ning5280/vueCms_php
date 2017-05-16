@@ -1,4 +1,5 @@
-  Navicat MySQL Data Transfer
+/*
+ Navicat MySQL Data Transfer
 
  Source Server         :  本地
  Source Server Version : 50711
@@ -8,11 +9,37 @@
  Target Server Version : 50711
  File Encoding         : utf-8
 
- Date: 05/16/2017 12:07:49 PM
+ Date: 05/16/2017 18:13:02 PM
 */
 
 SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+--  Table structure for `cms_admin_admin`
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_admin_admin`;
+CREATE TABLE `cms_admin_admin` (
+  `id` char(32) NOT NULL COMMENT '主键',
+  `username` varchar(100) DEFAULT NULL COMMENT '管理后台账号',
+  `password` varchar(100) DEFAULT NULL COMMENT '管理后台密码',
+  `remark` varchar(100) DEFAULT NULL COMMENT '用户备注',
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  `realname` varchar(100) DEFAULT NULL COMMENT '真实姓名',
+  `structure_id` int(11) DEFAULT NULL COMMENT '部门',
+  `post_id` int(11) DEFAULT NULL COMMENT '岗位',
+  `rid` char(32) DEFAULT NULL COMMENT '角色id',
+  `status` tinyint(3) DEFAULT '1' COMMENT '状态,1启用0禁用',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `cms_admin_admin`
+-- ----------------------------
+BEGIN;
+INSERT INTO `cms_admin_admin` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '12213', '123213', null, null, null, null, '', '1'), ('e0048641702c647e37b79e9e593d40b2', 'test', '96e79218965eb72c92a549dd5a330112', '1232122222', '1494923689', '1494927029', '123', null, null, '510179841dfcbd0bb85710d48bfb1730', '1');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `cms_admin_article`
@@ -38,7 +65,7 @@ CREATE TABLE `cms_admin_article` (
 --  Records of `cms_admin_article`
 -- ----------------------------
 BEGIN;
-INSERT INTO `cms_admin_article` VALUES ('05c06795f6a8c6678861751ab24fb60d', '123123', '123', '0', '213', null, '', '1494732217', '1494732217', '1', 'c7c2cd24dc9881a11a06016c13d31f34', '0'), ('0fefeecebae830c568c548deffcbc3fd', '123213', '123', '0', '3123', null, '', '1494729023', '1494729023', '1', 'c7c2cd24dc9881a11a06016c13d31f34', '0'), ('31b7cc8454505b809f5a1124faf6d11f', '123213', '123', '0', '123213', '123213', '123123123', '123213213', '123213213', '1', '2a205eecf9e4e2ebcbc878f0ed3a4db2', '0'), ('35e987acd15de3df79941fd928d4d210', '测试文章', '123', '0', '123', '20170514\\371f0687578486af3e4c87b73653f3d2.jpg', '&lt;p&gt;123213213213&lt;/p&gt;', '1494728231', '1494728231', '1', '0', '0'), ('44dee2e539f0a95d625bd29fd8c117b1', '123123213', '12312', '0', '3123', null, '', '1494728859', '1494728859', '1', '2a205eecf9e4e2ebcbc878f0ed3a4db2', '0'), ('4d8db461cac5c191011ba2e4555e546e', '123123213', '12312', '1', '3123', null, '', '1494728880', '1494728880', '1', '2a205eecf9e4e2ebcbc878f0ed3a4db2', '0'), ('593baf7a67d251c6dac7ddeddfcbe28a', '123213', '123', '0', '123', null, '', '1494729004', '1494729004', '1', 'c7c2cd24dc9881a11a06016c13d31f34', '0'), ('9e43b8fd676822dac0d856c7e8ba3c6e', '123', '123', '0', '123', null, '', '1494728970', '1494728970', '1', 'c7c2cd24dc9881a11a06016c13d31f34', '0'), ('aed6d5a4967852c63a9979607c7b9436', '123123', '123', '0', '123', null, '', '1494728942', '1494728942', '1', 'c7c2cd24dc9881a11a06016c13d31f34', '0'), ('c6c2df34aabe183ac02b9c0dd6c04308', '42134213213', '123', '0', '213213', null, '', '1494732225', '1494732225', '1', '2a205eecf9e4e2ebcbc878f0ed3a4db2', '0'), ('e5c7d9d33629085688252c5a9466b84e', '123123', '123', '0', '123', null, '', '1494728574', '1494728574', '1', 'c7c2cd24dc9881a11a06016c13d31f34', '0');
+INSERT INTO `cms_admin_article` VALUES ('31b7cc8454505b809f5a1124faf6d11f', '123213', '123', '0', '123213', '123213', '123123123', '123213213', '123213213', '1', '2a205eecf9e4e2ebcbc878f0ed3a4db2', '0'), ('35e987acd15de3df79941fd928d4d210', '测试文章2', '123', '0', '123', '20170514\\371f0687578486af3e4c87b73653f3d2.jpg', '<p><strong>地hi互动哈斯u</strong></p>', '1494728231', '1494928032', '1', '0', '0'), ('44dee2e539f0a95d625bd29fd8c117b1', '123123213', '12312', '0', '3123', null, '', '1494728859', '1494728859', '1', '2a205eecf9e4e2ebcbc878f0ed3a4db2', '0'), ('4d8db461cac5c191011ba2e4555e546e', '123123213', '12312', '1', '3123', null, '', '1494728880', '1494728880', '1', '2a205eecf9e4e2ebcbc878f0ed3a4db2', '0'), ('593baf7a67d251c6dac7ddeddfcbe28a', '123213123', '123', '0', '123', '', '', '1494729004', '1494927055', '1', 'c7c2cd24dc9881a11a06016c13d31f34', '0'), ('9e43b8fd676822dac0d856c7e8ba3c6e', '123', '123', '0', '123', null, '', '1494728970', '1494728970', '1', 'c7c2cd24dc9881a11a06016c13d31f34', '0'), ('aed6d5a4967852c63a9979607c7b9436', '123123', '123', '0', '123', null, '', '1494728942', '1494728942', '1', 'c7c2cd24dc9881a11a06016c13d31f34', '0'), ('e5c7d9d33629085688252c5a9466b84e', '123123', '123', '0', '123', null, '', '1494728574', '1494728574', '1', 'c7c2cd24dc9881a11a06016c13d31f34', '0');
 COMMIT;
 
 -- ----------------------------
@@ -115,31 +142,6 @@ CREATE TABLE `cms_admin_rule` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `cms_admin_rule` VALUES ('1', '后台管理模块', 'admin', '1', '0', '1', '1', '1494857329', '1494857329'), ('2', '菜单管理', 'menu', '2', '1', '1', '1', '1494857363', '1494857363'), ('3', '添加菜单', 'add', '3', '2', '1', '1', '1494857388', '1494857388'), ('4', '菜单编辑', 'edit', '3', '2', '1', '2', '1494899487', '1494899487'), ('5', '菜单删除', 'del', '3', '2', '1', '3', '1494899548', '1494899548'), ('6', '文章管理', 'article', '2', '1', '1', '2', '1494899584', '1494899584'), ('7', '添加文章', 'add', '3', '6', '1', '1', '1494899622', '1494899622'), ('8', '文章编辑', 'edit', '3', '6', '1', '2', '1494899640', '1494899640'), ('9', '文章删除', 'del', '3', '6', '1', '3', '1494899654', '1494899654');
-COMMIT;
-
--- ----------------------------
---  Table structure for `cms_admin_user`
--- ----------------------------
-DROP TABLE IF EXISTS `cms_admin_user`;
-CREATE TABLE `cms_admin_user` (
-  `id` char(32) NOT NULL COMMENT '主键',
-  `username` varchar(100) DEFAULT NULL COMMENT '管理后台账号',
-  `password` varchar(100) DEFAULT NULL COMMENT '管理后台密码',
-  `remark` varchar(100) DEFAULT NULL COMMENT '用户备注',
-  `create_time` int(11) DEFAULT NULL,
-  `update_time` int(11) DEFAULT NULL,
-  `realname` varchar(100) DEFAULT NULL COMMENT '真实姓名',
-  `structure_id` int(11) DEFAULT NULL COMMENT '部门',
-  `post_id` int(11) DEFAULT NULL COMMENT '岗位',
-  `status` tinyint(3) DEFAULT NULL COMMENT '状态,1启用0禁用',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Records of `cms_admin_user`
--- ----------------------------
-BEGIN;
-INSERT INTO `cms_admin_user` VALUES ('12321fcdssc21', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '12213', '123213', null, null, null, null, '1');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
