@@ -70,4 +70,10 @@ class Role extends Controller
     }
 
 
+    public function info(){
+        $data = input();
+        $roleModel = new RoleModel;
+        $re=$roleModel->getDataById($data['id']);
+        echo json_encode(array('code'=>1,'data'=>$re));die;
+    }
 }
