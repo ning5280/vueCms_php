@@ -1,5 +1,4 @@
-/*
- Navicat MySQL Data Transfer
+  Navicat MySQL Data Transfer
 
  Source Server         :  本地
  Source Server Version : 50711
