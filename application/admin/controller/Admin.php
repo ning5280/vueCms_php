@@ -19,7 +19,8 @@ class Admin extends Controller
     public function _initialize()
     {
         parent::_initialize();
-        if(input('post.id')==1||is_array(input('post.id'))&&in_array(1,input('post.id'))){
+        $id = input('post.id/a',0);
+        if($id==1||is_array($id)&&in_array(1,$id)){
             echo json_encode(array('code'=>0,'message'=>'无法操作admin相关'));die;
         }
     }
@@ -37,12 +38,13 @@ class Admin extends Controller
         $data = input();
         $id = createId();
         $data['id'] = $id;
-        $roleModel = new AdminModel;
-        $re=$roleModel->createData($data);
+        $data['password'] = md5($data['password']);
+        $adminModel = new AdminModel;
+        $re=$adminModel->createData($data);
         if($re){
             echo json_encode(array('code'=>1,'message'=>'添加成功','data'=>$id));die;
         }else{
-            echo json_encode(array('code'=>0,'message'=>$roleModel->getError()));die;
+            echo json_encode(array('code'=>0,'message'=>$adminModel->getError()));die;
         }
     }
 
@@ -51,6 +53,9 @@ class Admin extends Controller
     {
 
         $data = input();
+        if(input('post.password',0)){
+            $data['password'] = md5($data['password']);
+        }
         $roleModel = new AdminModel;
         $re=$roleModel->updateDataById($data,$data['id']);
         if($re){
@@ -62,18 +67,19 @@ class Admin extends Controller
 
     public function del()
     {
+
         $data = input();
-        $roleModel = new AdminModel;
+        $adminModel = new AdminModel;
         if(is_array($data['id'])){
             $idList = $data['id'];
         }else{
             $idList = [$data['id']];
         }
-        $re=$roleModel->delDatas($idList);
+        $re=$adminModel->delDatas($idList);
         if($re){
             echo json_encode(array('code'=>1,'message'=>'删除成功'));die;
         }else{
-            echo json_encode(array('code'=>0,'message'=>$roleModel->getError()));die;
+            echo json_encode(array('code'=>0,'message'=>$adminModel->getError()));die;
         }
     }
 
@@ -83,5 +89,22 @@ class Admin extends Controller
         $roleModel = new AdminModel;
         $re=$roleModel->getDataById($data['id']);
         echo json_encode(array('code'=>1,'data'=>$re));die;
+    }
+
+    //根据菜单id进行显示隐藏
+    public function changestatus(){
+        $id = input('id',0);
+        $status = input('status',1);
+        $adminModel = new AdminModel;
+//        $idList =$menuModel->getAllChild($id);
+//        array_push($idList,$id);
+//        $re=Db::name('admin_menu')->where('id','in',$idList)->update(array('status'=>$status));
+        $re=$adminModel->enableDatas([$id],$status);
+        if($re){
+            echo json_encode(array('code'=>1,'message'=>'状态更新成功'));die;
+        }else{
+            echo json_encode(array('code'=>0,'message'=>'状态更新失败'));die;
+
+        }
     }
 }

@@ -21,7 +21,7 @@ class AdminRole extends Validate{
 
     protected  $scene = [
         'add' => ['name'],// 添加
-        'edit' =>['name'],
+        'edit' =>['name','id'],
 //        'listorder' => ['id', 'listorder'], //排序
 //        'status' => ['id', 'status'],
     ];

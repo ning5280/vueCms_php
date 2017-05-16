@@ -27,7 +27,7 @@ class AdminRule extends Validate{
 
     protected  $scene = [
         'add' => ['title', 'name','type','pid'],// 添加
-        'edit' =>['title', 'name','type','pid'],
+        'edit' =>['title', 'name','type','pid','id'],
 //        'listorder' => ['id', 'listorder'], //排序
 //        'status' => ['id', 'status'],
     ];
