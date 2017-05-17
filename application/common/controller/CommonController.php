@@ -19,8 +19,8 @@ class CommonController extends Controller
         parent::_initialize();
         $header = Request::instance()->header();
         $token = isset($header['token'])?$header['token']:'';
-        if(!$token||Cache::get($token)){
-            echo json_encode(array('code'=>10,'message'=>'请先登录'));die;
+        if(!$token||!Cache::get($token)){
+            echo json_encode(array('code'=>11,'message'=>'请先登录'));die;
         }
     }
     public function index()

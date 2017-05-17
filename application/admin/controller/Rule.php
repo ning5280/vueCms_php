@@ -15,7 +15,7 @@ use think\Controller;
 use think\Db;
 use app\admin\model\Rule as RuleModel;
 
-class Rule extends Controller
+class Rule extends CommonController
 {
     public function index()
     {

@@ -14,7 +14,7 @@ use think\Controller;
 use think\Db;
 use app\admin\model\Role as RoleModel;
 
-class Role extends Controller
+class Role extends CommonController
 {
     public function index()
     {

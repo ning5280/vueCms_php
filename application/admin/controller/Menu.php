@@ -15,7 +15,7 @@ use think\Controller;
 use think\Db;
 use app\admin\model\Menu as MenuModel;
 
-class Menu extends Controller
+class Menu extends CommonController
 {
     public function index()
     {

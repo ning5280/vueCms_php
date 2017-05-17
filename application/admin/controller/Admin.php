@@ -14,7 +14,7 @@ use think\Controller;
 use think\Db;
 use app\admin\model\Admin as AdminModel;
 
-class Admin extends Controller
+class Admin extends CommonController
 {
     public function _initialize()
     {
